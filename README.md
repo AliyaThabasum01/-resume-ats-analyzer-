@@ -6,10 +6,6 @@
 
 ResumeRadar is a client-side ATS (Applicant Tracking System) resume analyzer. Paste your resume and a job description, and it instantly generates an ATS match score, a keyword comparison, a compatibility checklist, and actionable suggestions — all processed locally in the browser with no servers, APIs, or data storage involved.
 
-## Live Demo
-
-*(Add your GitHub Pages link here after deploying)*
-
 ## Features
 
 - **Overall ATS Match Score** — animated circular gauge combining keyword match and content quality
