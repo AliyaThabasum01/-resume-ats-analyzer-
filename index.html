@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResumeRadar — ATS Resume Analyzer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-row">
+        <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="6"/>
+          <circle cx="12" cy="12" r="2"/>
+        </svg>
+        <h1>ResumeRadar</h1>
+      </div>
+      <p class="subtitle">Paste your resume and a job description to get an instant ATS compatibility score, keyword match analysis, and tailored suggestions — all processed locally in your browser.</p>
+    </header>
+
+    <section class="input-section">
+      <div class="input-card">
+        <label for="resumeInput">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Your Resume
+        </label>
+        <textarea id="resumeInput" placeholder="Paste the full text of your resume here..."></textarea>
+      </div>
+      <div class="input-card">
+        <label for="jdInput">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Job Description
+        </label>
+        <textarea id="jdInput" placeholder="Paste the job description you're applying to..."></textarea>
+      </div>
+    </section>
+
+    <div class="action-row">
+      <button id="analyzeBtn" class="primary">Analyze Resume</button>
+      <button id="sampleBtn" class="secondary">Load Sample</button>
+    </div>
+
+    <section id="results" class="results hidden">
+      <div class="score-overview">
+        <div class="gauge-wrapper">
+          <svg viewBox="0 0 200 200" class="gauge" aria-hidden="true">
+            <circle class="gauge-bg" cx="100" cy="100" r="85"/>
+            <circle class="gauge-fill" id="gaugeFill" cx="100" cy="100" r="85"/>
+          </svg>
+          <div class="gauge-label">
+            <span id="gaugeScore">0</span><span class="gauge-percent">%</span>
+            <span class="gauge-caption">ATS Match Score</span>
+          </div>
+        </div>
+
+        <div class="sub-scores">
+          <div class="sub-score">
+            <div class="sub-score-header"><span>Keyword Match</span><span id="keywordScoreLabel">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill keyword" id="keywordScoreBar"></div></div>
+          </div>
+          <div class="sub-score">
+            <div class="sub-score-header"><span>ATS &amp; Content Quality</span><span id="atsScoreLabel">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill ats" id="atsScoreBar"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="keywords-section">
+        <div class="keyword-group">
+          <h3>Matched Keywords <span class="count" id="matchedCount">(0)</span></h3>
+          <div class="tag-list" id="matchedKeywords"></div>
+        </div>
+        <div class="keyword-group">
+          <h3>Missing Keywords <span class="count" id="missingCount">(0)</span></h3>
+          <div class="tag-list" id="missingKeywords"></div>
+          <p class="hint">Add these only if they genuinely apply to you — don't fabricate skills.</p>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <h3>ATS Compatibility Checklist</h3>
+        <ul class="checklist" id="checklist"></ul>
+      </div>
+
+      <div class="suggestions-section">
+        <h3>Suggestions to Improve Your Resume</h3>
+        <ul class="suggestions" id="suggestions"></ul>
+      </div>
+
+      <button id="downloadBtn" class="secondary">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Report
+      </button>
+    </section>
+
+    <footer>
+      <p>All analysis runs locally in your browser. Nothing is uploaded, stored, or sent anywhere.</p>
+      <p class="credit">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.94 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.62-2.805 5.64-5.475 5.94.435.375.81 1.11.81 2.25 0 1.635-.015 2.945-.015 3.345 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Built by <a href="https://github.com/AliyaThabasum01" target="_blank">Aliya Thabasum</a>
+      </p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
